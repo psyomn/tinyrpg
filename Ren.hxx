@@ -4,6 +4,9 @@
 #include <cstdlib>
 #include <ctime> 
 #include <limits> 
+#include <iostream> 
+#include <string> 
+#include <vector>
 
 /** Simple random engine. */
 class Ren {
@@ -16,13 +19,13 @@ public:
   }
   void set(double&); 
   void set(float&); 
+  static std::string getName(); 
 
   // TODO 
   void setRange(); 
 
 private: 
   static time_t mCurSeed; 
-
   //functions 
   void generate();
 

@@ -10,5 +10,5 @@ CONFIG -= qt
 OBJECTS_DIR = obj
 
 # Input
-HEADERS += Org.hxx  Ren.hxx
-SOURCES += main.cxx Org.cxx Ren.cxx
+HEADERS += Org.hxx  Ren.hxx Battle.hxx 
+SOURCES += main.cxx Org.cxx Ren.cxx Battle.cxx 
