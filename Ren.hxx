@@ -2,6 +2,7 @@
 #define REN_HXX
 
 #include <cstdlib>
+#include <stdint.h>
 #include <ctime> 
 #include <limits> 
 #include <iostream> 
@@ -22,7 +23,8 @@ public:
   static std::string getName(); 
 
   // TODO 
-  void setRange(); 
+  static uint64_t getRange(uint64_t); 
+  static char getSign(); 
 
 private: 
   static time_t mCurSeed; 

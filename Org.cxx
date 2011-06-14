@@ -11,7 +11,8 @@ Org::Org() :
   mSpeed(1),
   mClass(0), 
   mAlly(1), // 1 denotes AI, enemy. Human players are special, hence need to be set
-  mDistortion(10) // % of distortion on attacks 
+  mDistortion(10), // % of distortion on attacks 
+  mExperience(0) // starting experience is always zero 
 {}
 
 Org::~Org() {} 
@@ -35,6 +36,14 @@ void Org::setSpeed(unsigned int x){ mSpeed = x; }
 void Org::setClass(unsigned char x){ mClass= x; } 
 void Org::setAlly(unsigned char x){ mAlly = x; } 
 void Org::setDistortion(unsigned char x){ mDistortion = x; } 
+
+unsigned int Org::attack(){
+  return getAttack() * ( 100 + ( mRen.getSign() *  mRen.getRange(mDistortion) ) ) / 100; 
+}
+
+unsigned int Org::defend(){
+  return getDefense() * ( 100 + ( mRen.getSign() * mRen.getRange(mDistortion) ) ) / 100;   
+}
 
 void Org::augmentAttack(){ augment(0); }
 void Org::augmentDefense(){ augment(1); }
@@ -93,6 +102,18 @@ std::string Org::to_s(){
 
   return tmp; 
 }
+
+std::string Org::to_ms(){
+  std::string tmp; 
+  std::stringstream ss; 
+
+  ss << "[" << mHitpoints << "|" << mStamina << "]";
+
+  tmp += mName + " : " + ss.str(); 
+
+  return tmp; 
+}
+
 /** Generate random information for an organism object */
 void Org::rand() {
   unsigned int tmp; 
@@ -104,11 +125,30 @@ void Org::rand() {
   mDefense = tmp % 20 + 1; 
   mRen.set(tmp); 
   mStamina = tmp % 20 + 1;
+  mHitpoints = mStamina; 
   mRen.set(tmp); 
   mSpeed = tmp % 20 + 1;
   stmp = mRen.getName(); 
   mName = stmp; 
 }
+
+void Org::receiveDamage(unsigned int dmg){
+  unsigned int tmp = defend(); 
+
+  if (dmg > tmp) 
+    dmg -= tmp; 
+  else 
+    dmg = 1;
+
+  if (mHitpoints > dmg)
+    mHitpoints -= dmg; 
+  else 
+    mHitpoints = 0;
+}
+
+void Org::debug(){
+}
+
 
 #endif 
 

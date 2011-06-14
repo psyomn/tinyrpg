@@ -2,15 +2,21 @@
 #define ORG_HXX
 
 #include<string>
+#include<stdint.h>
 #include<sstream> 
 #include<iostream> 
 
 #include "Ren.hxx"
 
+/** Character class 
+TODO -> Skills 
+*/
 class Org {
 public:
   Org(); 
   ~Org(); 
+  
+  // For display 
   std::string getName(); 
   unsigned int getAttack(); 
   unsigned int getDefense();
@@ -21,6 +27,7 @@ public:
   unsigned char getAlly(); 
   unsigned char getDistortion(); 
 
+  // For standard setting 
   void setAttack(unsigned int); 
   void setDefense(unsigned int);
   void setStamina(unsigned int);
@@ -31,6 +38,11 @@ public:
   void setAlly(unsigned char);
   void setDistortion(unsigned char); 
 
+  // For battle stuffs (modifiers added) 
+  unsigned int attack(); 
+  unsigned int defend(); 
+  void receiveDamage(unsigned int); 
+
   // aug is for augment 
   void augmentAttack(); 
   void augmentDefense(); 
@@ -39,7 +51,9 @@ public:
 
   // utilities 
   std::string to_s();
+  std::string to_ms(); 
   void rand(); 
+  void debug(); 
 private:
   std::string mName; 
   unsigned int mAttack; 
@@ -50,6 +64,7 @@ private:
   unsigned char mClass; /** Rogue, Warrior, Whatever */ 
   unsigned char mAlly; /** To classify who's side someone's on */
   unsigned char mDistortion; /** percentage to distort an attack up or down. */
+  uint64_t mExperience; /** Experience gained from battles */
 
   // functions
   void augment(unsigned int); 

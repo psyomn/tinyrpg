@@ -13,11 +13,16 @@ int main(){
 
   std::cout << "Tiny RPG" << std::endl; 
  
-  std::cout << "Player name: "; std::cout.flush(); 
+  std::cout << "Player name: ";
   std::cin >> str; 
 
   player = new Org(); 
+  player->rand(); 
   player->setName(str); 
+  player->setAlly(0); 
+
+  std::cout << "Here are your stats : " << std::endl; 
+  std::cout << player->to_s() << std::endl; 
 
   bat.add(player); 
 
@@ -27,11 +32,12 @@ int main(){
     bat.add(op); 
   }
 
-  std::cout << bat.to_s() << std::endl; 
-
   bat.start(); 
-  std::cout << "Sorted by speed" << std::endl;
-  std::cout << bat.to_s() << std::endl;
+
+  while(!bat.done()){
+    std::cout << bat.to_s() << std::endl;
+    bat.step(); 
+  }
 
   return 0; 
 }

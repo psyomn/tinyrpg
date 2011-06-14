@@ -48,5 +48,13 @@ std::string Ren::getName() {
   return "Anon";
 }
 
+uint64_t Ren::getRange(uint64_t range){
+  return rand() % range; 
+}
+
+char Ren::getSign() {
+  return rand() % 2 == 0 ? -1 : 1; 
+}
+
 #endif 
 
