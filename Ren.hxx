@@ -27,7 +27,7 @@ public:
   static char getSign(); 
 
 private: 
-  static time_t mCurSeed; 
+  static char mCurSeed; 
   //functions 
   void generate();
 

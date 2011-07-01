@@ -3,7 +3,7 @@
 
 #include "Ren.hxx" 
 
-time_t Ren::mCurSeed = 0; 
+char Ren::mCurSeed = 0;
 
 Ren::Ren(){
   if (!mCurSeed){
@@ -18,6 +18,7 @@ Ren::~Ren(){
 void Ren::generate(){
   std::cout << "GEN SEED" << std::endl;
   srand ( time ( 0 ) );  
+  mCurSeed = 1; 
 }
 
 // TODO 

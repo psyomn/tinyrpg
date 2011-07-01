@@ -70,7 +70,7 @@ private:
   void augment(unsigned int); 
   void augment_special(); 
 
-  static Ren mRen; /** This to be used whenever we need to call upon randomness. Prevents bad seeds. */
+  Ren mRen; /** This to be used whenever we need to call upon randomness. Prevents bad seeds. */
 };
 
 #endif 

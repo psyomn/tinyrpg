@@ -31,13 +31,28 @@ void Battle::add(Org* o) {
 
 std::string Battle::to_s() const {
   std::vector<Org*>::const_iterator it; 
-  std::string str = ""; 
+  std::string alive = ""; 
+  std::string dead = ""; 
+  std::stringstream ss; 
+  int count=0; 
+
+  dead += "Dead\n"; 
 
   for (it=mOrgList.begin(); it!=mOrgList.end(); ++it) {
-    str += (*it)->to_ms() + "\n"; 
+    ss << count; 
+    
+    if ( (*it)->getHitpoints() > 0 ) 
+      alive += "[" + ss.str() + "] " + (*it)->to_ms() + "\n"; 
+    else
+      dead += "[" + ss.str() + "] " + (*it)->to_ms() + "\n";  
+
+    ss.str(""); 
+    ++count; 
   }
-  str += "\n"; 
-  return str; 
+
+  dead += "\nAlive\n"; 
+  dead += alive;
+  return dead; 
 }
 
 bool Battle::sortTurnsLogic(Org* o, Org* oo){
@@ -63,14 +78,31 @@ void Battle::step(){
   std::string str;
   std::stringstream ss; 
   int choice;
+  bool badnum = true; 
 
   for (it=mOrgList.begin(); it!=mOrgList.end(); ++it){
     if (!(*it)->getAlly()){
       // Player turn 
+      // TODO this part should probably call up the player menu, or AI of monster
       std::cout << "Attack who?"; 
-      std::cin >> str;
-      ss.str(str); 
-      ss >> choice; 
+      badnum = true; // reset
+      
+      // Range checking must be done here 
+      while(badnum) {
+        std::cin >> str;
+        ss << str << " "; 
+        choice = 0;
+        ss >> choice; 
+      
+        // if in the valid range, break the loop
+        if ( choice >= 0 && choice < mOrgList.size() ) 
+          badnum = false; 
+        else
+          std::cout << "You have entered an invalid monster range : " 
+                    << choice << "/" << mOrgList.size() << std::endl; 
+
+        ss.str(""); 
+      }
       
       mOrgList[choice]->receiveDamage((*it)->attack()); 
       
