@@ -7,8 +7,9 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 CONFIG -= qt
+LIBS += -lsqlite3
 OBJECTS_DIR = obj
 
 # Input
-HEADERS += Org.hxx  Ren.hxx Battle.hxx 
-SOURCES += main.cxx Org.cxx Ren.cxx Battle.cxx 
+HEADERS += Org.hxx  Ren.hxx Battle.hxx DB.sqlite3.hxx
+SOURCES += main.cxx Org.cxx Ren.cxx Battle.cxx DB.sqlite3.cxx
