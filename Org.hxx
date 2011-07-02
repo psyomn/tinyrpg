@@ -17,15 +17,16 @@ public:
   ~Org(); 
   
   // For display 
-  std::string getName(); 
-  unsigned int getAttack(); 
-  unsigned int getDefense();
-  unsigned int getStamina(); 
-  unsigned int getHitpoints();
-  unsigned int getSpeed(); 
-  unsigned char getClass(); 
-  unsigned char getAlly(); 
-  unsigned char getDistortion(); 
+  std::string getName() const; 
+  unsigned int getAttack() const; 
+  unsigned int getDefense() const;
+  unsigned int getStamina() const; 
+  unsigned int getHitpoints() const;
+  unsigned int getSpeed() const; 
+  unsigned char getClass() const; 
+  unsigned char getAlly() const; 
+  unsigned char getDistortion() const; 
+  uint64_t getExperience() const; 
 
   // For standard setting 
   void setAttack(unsigned int); 
@@ -41,7 +42,9 @@ public:
   // For battle stuffs (modifiers added) 
   unsigned int attack(); 
   unsigned int defend(); 
-  void receiveDamage(unsigned int); 
+  void receiveDamage(unsigned int, Org&); 
+  void receiveExperience(uint64_t); 
+  size_t examineOrgList(const std::vector<Org*>&) const; 
 
   // aug is for augment 
   void augmentAttack(); 

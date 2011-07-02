@@ -17,15 +17,16 @@ Org::Org() :
 
 Org::~Org() {} 
 
-std::string Org::getName(){ return mName; }
-unsigned int Org::getAttack(){ return mAttack; }
-unsigned int Org::getDefense(){ return mDefense; }
-unsigned int Org::getStamina(){ return mStamina; }
-unsigned int Org::getHitpoints(){ return mHitpoints; }
-unsigned int Org::getSpeed(){ return mSpeed; }
-unsigned char Org::getClass(){ return mClass; } 
-unsigned char Org::getAlly(){ return mAlly; }
-unsigned char Org::getDistortion(){ return mDistortion; } 
+std::string Org::getName() const { return mName; }
+unsigned int Org::getAttack() const { return mAttack; }
+unsigned int Org::getDefense() const { return mDefense; }
+unsigned int Org::getStamina() const { return mStamina; }
+unsigned int Org::getHitpoints() const { return mHitpoints; }
+unsigned int Org::getSpeed() const { return mSpeed; }
+unsigned char Org::getClass() const { return mClass; } 
+unsigned char Org::getAlly() const { return mAlly; }
+unsigned char Org::getDistortion() const { return mDistortion; } 
+uint64_t Org::getExperience() const { return mExperience; }
 
 void Org::setAttack(unsigned int x){ mAttack = x; }
 void Org::setDefense(unsigned int x){ mDefense = x; }
@@ -130,9 +131,16 @@ void Org::rand() {
   mSpeed = tmp % 20 + 1;
   stmp = mRen.getName(); 
   mName = stmp; 
+  mRen.set(tmp); 
+  mDistortion = tmp % 16; 
+  mRen.set(tmp); 
+  mExperience = tmp % 100;
 }
 
-void Org::receiveDamage(unsigned int dmg){
+/** Main routine for talking about damage and having jackass quotes whenever an org damages itself 
+TODO gaining for experience points should go here.
+*/
+void Org::receiveDamage(unsigned int dmg, Org& other){
   unsigned int tmp = defend(); 
 
   if (dmg > tmp) 
@@ -140,15 +148,55 @@ void Org::receiveDamage(unsigned int dmg){
   else 
     dmg = 1;
 
+  if (this != &other)
+    std::cout << this->mName << " receives " << dmg << " damage from " << other.getName() << std::endl; 
+  else 
+    std::cout << this->mName << " goes emo and damages himself for " << dmg << " hitpoints!" << std::endl; 
+
   if (mHitpoints > dmg)
     mHitpoints -= dmg; 
-  else 
+  else {
     mHitpoints = 0;
+
+    if (this != &other){
+      std::cout << this->mName << " dies from the hands of " << other.getName() << std::endl; 
+    
+      // Experience Reward 
+      std::cout << other.getName() << " receives " << this->getExperience() << " experience points for the kill!" << std::endl;
+      other.receiveExperience(this->getExperience()); 
+
+    }
+    else 
+      std::cout << this->mName << " does it right in the emo way and kills himself." << std::endl;
+  }
 }
 
+/** Any internal debuging stuff can go here */
 void Org::debug(){
 }
 
+/** \return the position of their enemy to attack! 
+TODO needs tweaking so people don't hurt themselves, or hurt allies */
+size_t Org::examineOrgList(const std::vector<Org*>& list) const {
+  size_t pos = 0;  // pos to return with minest stamina 
+  size_t count = 0;  // current pos 
+  unsigned int minhp = ~0; // set to max for min later 
+
+  for(std::vector<Org*>::const_iterator it = list.begin(); it != list.end(); ++it){
+    if (minhp > (*it)->getHitpoints() && (*it)->getHitpoints() != 0 && *it != this ){
+      minhp = (*it)->getHitpoints(); 
+      pos = count; 
+    }
+    ++count; 
+  }
+
+  return pos; 
+}
+
+/** Increment the experience points */
+void Org::receiveExperience(uint64_t exp) {
+  this->mExperience += exp; 
+}
 
 #endif 
 

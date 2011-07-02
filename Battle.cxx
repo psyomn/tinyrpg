@@ -77,38 +77,47 @@ void Battle::step(){
   std::vector<Org*>::iterator it; 
   std::string str;
   std::stringstream ss; 
-  int choice;
+  unsigned int choice;
   bool badnum = true; 
 
+  // TODO this part should probably call up the player menu, or AI of monster
   for (it=mOrgList.begin(); it!=mOrgList.end(); ++it){
-    if (!(*it)->getAlly()){
-      // Player turn 
-      // TODO this part should probably call up the player menu, or AI of monster
-      std::cout << "Attack who?"; 
-      badnum = true; // reset
-      
-      // Range checking must be done here 
-      while(badnum) {
-        std::cin >> str;
-        ss << str << " "; 
-        choice = 0;
-        ss >> choice; 
-      
-        // if in the valid range, break the loop
-        if ( choice >= 0 && choice < mOrgList.size() ) 
-          badnum = false; 
-        else
-          std::cout << "You have entered an invalid monster range : " 
-                    << choice << "/" << mOrgList.size() << std::endl; 
+    if ((*it)->getHitpoints()){
+      if (!(*it)->getAlly()){
 
-        ss.str(""); 
+        std::cout << to_s() << std::endl;
+        
+        std::cout << "Attack who? "; 
+        badnum = true; // reset
+        
+        // Range checking must be done here 
+        while(badnum) {
+          std::cin >> str;
+          ss << str << " "; 
+          choice = 0;
+          ss >> choice; 
+        
+          // if in the valid range, break the loop
+          if ( choice < mOrgList.size() ) // note - because unsigned, -1 or whatever will make max, which is greater than size, probably
+            badnum = false; 
+          else
+            std::cout << "You have entered an invalid monster range : " 
+              << choice << "/" << mOrgList.size() 
+              << "\nAttack who? " << std::endl; 
+
+          ss.str(""); 
+        }
+        
+        mOrgList[choice]->receiveDamage((*it)->attack(), *(*it)); 
+        
+      } else {
+        // Enemy turn / AI  
+        std::cout << "Enemy " << (*it)->getName() << "\'s turn!" << std::endl; 
+        mOrgList[ (*it)->examineOrgList(mOrgList) ]->receiveDamage((*it)->attack(), *(*it)); 
+        std::cout << std::endl;
+        sleep(3); 
       }
-      
-      mOrgList[choice]->receiveDamage((*it)->attack()); 
-      
-    } else {
-      // Enemy turn 
-    }
+    } // end check if they have any hitpoints left
   }
 }
 

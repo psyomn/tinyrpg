@@ -5,9 +5,9 @@
 
 /** Constructor stuff */
 DBSqlite3::DBSqlite3(std::string tname = "tinyrpg.main.db") : 
+  mOpen(0),
   mRC(0), 
-  mError(0), 
-  mOpen(0){
+  mError(0){ 
 
   mRC = sqlite3_open(tname.c_str(), &mHandle);
 
@@ -15,6 +15,7 @@ DBSqlite3::DBSqlite3(std::string tname = "tinyrpg.main.db") :
     std::cerr << "Error opening db : " << tname; 
     sqlite3_close(mHandle); 
   }
+
   else mOpen = 1; 
 
 }
