@@ -1,0 +1,4 @@
+Add whatever you want here for data storage. 
+
+enemies db contains info about possible enemies. There are values for their hp, mp etc as well 
+items db contains info about possible items. The format is name, and a code which describes the properties of said item. 

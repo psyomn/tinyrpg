@@ -9,13 +9,24 @@ Org::Org() :
   mStamina(1), 
   mHitpoints(1),
   mSpeed(1),
+  mEquipAttack(0),
+  mEquipDefense(0), 
+  mEquipStamina(0), 
+  mEquipSpeed(0), 
   mClass(0), 
   mAlly(1), // 1 denotes AI, enemy. Human players are special, hence need to be set
   mDistortion(10), // % of distortion on attacks 
   mExperience(0) // starting experience is always zero 
 {}
 
-Org::~Org() {} 
+/** Destructor; deallocates the item pointers for equipment. */
+Org::~Org() {
+  // Deallocate the item pointers
+  if(!mEquipAttack) delete mEquipAttack; 
+  if(!mEquipDefense) delete mEquipDefense; 
+  if(!mEquipStamina) delete mEquipStamina; 
+  if(!mEquipSpeed) delete mEquipSpeed; 
+} 
 
 std::string Org::getName() const { return mName; }
 unsigned int Org::getAttack() const { return mAttack; }
@@ -68,29 +79,37 @@ std::string Org::to_s(){
   tmp += "\n"; 
 
   tmp += "Attack  : ";
-  ss << mAttack;
+  ss << mAttack << " (+";
+  ss << ( mEquipAttack != 0 ? mEquipAttack->getAttack() : 0 );
+  ss << ")"; 
   tmp += ss.str(); 
   tmp += "\n"; 
   ss.str(""); 
 
   tmp += "Defense : ";
-  ss << mDefense;
+  ss << mDefense << " (+";
+  ss << ( mEquipDefense != 0 ? mEquipDefense->getDefense() : 0 ); 
+  ss << ")"; 
   tmp += ss.str(); 
   tmp += "\n"; 
   ss.str(""); 
 
   tmp += "Speed   : ";
-  ss << mSpeed; 
+  ss << mSpeed << " (+";
+  ss << ( mEquipSpeed != 0 ? mEquipSpeed->getSpeed() : 0 ); 
+  ss << ")"; 
   tmp += ss.str(); 
   tmp += "\n"; 
   ss.str(""); 
 
-  tmp += "Stam/hit: ";
-  ss << mStamina; 
-  tmp += ss.str(); 
-  tmp += "/";
-  ss.str("");
+  tmp += "hit/stam: ";
   ss << mHitpoints; 
+  tmp += ss.str(); 
+  ss.str("");
+  tmp += "/";
+  ss << mStamina << " (+"; 
+  ss << ( mEquipStamina != 0 ? mEquipStamina->getStamina() : 0 ); 
+  ss << ")"; 
   tmp += ss.str(); 
   tmp += "\n"; 
   ss.str(""); 
@@ -197,6 +216,14 @@ size_t Org::examineOrgList(const std::vector<Org*>& list) const {
 void Org::receiveExperience(uint64_t exp) {
   this->mExperience += exp; 
 }
+
+
+///============== Equip
+
+void Org::equipAttack(Item* ai) { mEquipAttack = ai; }
+void Org::equipDefense(Item* di) { mEquipDefense = di; } 
+void Org::equipStamina(Item* si) { mEquipStamina = si; } 
+void Org::equipSpeed(Item* spi) { mEquipSpeed = spi; } 
 
 #endif 
 

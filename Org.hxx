@@ -7,8 +7,10 @@
 #include<iostream> 
 
 #include "Ren.hxx"
+#include "Item.hxx"
 
 /** Character class 
+TODO inventory
 TODO -> Skills 
 */
 class Org {
@@ -46,6 +48,12 @@ public:
   void receiveExperience(uint64_t); 
   size_t examineOrgList(const std::vector<Org*>&) const; 
 
+  // Equipment 
+  void equipAttack(Item*); 
+  void equipDefense(Item*); 
+  void equipStamina(Item*); 
+  void equipSpeed(Item*); 
+
   // aug is for augment 
   void augmentAttack(); 
   void augmentDefense(); 
@@ -59,11 +67,22 @@ public:
   void debug(); 
 private:
   std::string mName; 
-  unsigned int mAttack; 
-  unsigned int mDefense; 
-  unsigned int mStamina; 
-  unsigned int mHitpoints; 
-  unsigned int mSpeed;
+  unsigned int mAttack;  /** Attack respectively to level of Organism */
+  unsigned int mDefense; /** Defense respectively to level of Organism */
+  unsigned int mStamina; /** Stamina respectively to level of Organism */
+  unsigned int mHitpoints; /** Hitpoints respectively to level of Organism */
+  unsigned int mSpeed; /** Speed respectively to level of Organism */
+
+  Item* mEquipAttack; /** For equipment traits */
+  Item* mEquipDefense;/** For equipment traits */  
+  Item* mEquipStamina;/** For equipment traits */ 
+  Item* mEquipSpeed;/** For equipment traits */ 
+
+  unsigned int mBuffAttack;  /** Battle specific attack buff */
+  unsigned int mBuffDefense; /** Battle specific defense buff */
+  unsigned int mBuffStamina; /** Battle specific speed buff */
+  unsigned int mBuffSpeed; /** Battle specific buff */
+
   unsigned char mClass; /** Rogue, Warrior, Whatever */ 
   unsigned char mAlly; /** To classify who's side someone's on */
   unsigned char mDistortion; /** percentage to distort an attack up or down. */

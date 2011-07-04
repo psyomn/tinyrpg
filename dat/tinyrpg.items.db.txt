@@ -1,0 +1,4 @@
+Potion c50hp
+Ether  c10mp 
+Fastz  t10sp 
+Stamz  t10st
