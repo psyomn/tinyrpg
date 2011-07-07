@@ -1,0 +1,10 @@
+TODO List - top of list are features which must be
+done on the next iteration. Completed tasks are 
+pushed towards the bottom of the list. 
+--------------------------------------------------
+Mon Jul  4 10:18:42 EDT 2011
+  . Implement win condition
+  . Implement lose condition
+  . Implement rematch condition 
+  . [DONE] Implement/Refactor main interface to class
+

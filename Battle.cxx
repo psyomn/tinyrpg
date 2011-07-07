@@ -34,19 +34,26 @@ std::string Battle::to_s() const {
   std::string alive = ""; 
   std::string dead = ""; 
   std::stringstream ss; 
+  std::stringstream ss_team; 
   int count=0; 
 
   dead += "Dead\n"; 
 
   for (it=mOrgList.begin(); it!=mOrgList.end(); ++it) {
     ss << count; 
+    ss_team << int((*it)->getAlly()) ;
     
     if ( (*it)->getHitpoints() > 0 ) 
-      alive += "[" + ss.str() + "] " + (*it)->to_ms() + "\n"; 
+      alive += "[" + ss.str() + "] [team:" 
+      + ss_team.str() + "] " 
+      + (*it)->to_ms() + "\n"; 
     else
-      dead += "[" + ss.str() + "] " + (*it)->to_ms() + "\n";  
+      dead += "[" + ss.str() + "] [team:" 
+      + ss_team.str() + "] " 
+      + (*it)->to_ms() + "\n";  
 
     ss.str(""); 
+    ss_team.str(""); 
     ++count; 
   }
 
@@ -79,6 +86,7 @@ void Battle::step(){
   std::stringstream ss; 
   unsigned int choice;
   bool badnum = true; 
+  bool alldead = false;
 
   // TODO this part should probably call up the player menu, or AI of monster
   for (it=mOrgList.begin(); it!=mOrgList.end(); ++it){
@@ -118,6 +126,8 @@ void Battle::step(){
         sleep(3); 
       }
     } // end check if they have any hitpoints left
+    // this is where checking to see if a group of specific players has survived 
+    
   }
 }
 

@@ -8,6 +8,7 @@
 
 #include "Ren.hxx"
 #include "Item.hxx"
+#include "DB.sqlite3.hxx"
 
 /** Character class 
 TODO inventory

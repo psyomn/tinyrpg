@@ -188,6 +188,8 @@ void Org::receiveDamage(unsigned int dmg, Org& other){
     else 
       std::cout << this->mName << " does it right in the emo way and kills himself." << std::endl;
   }
+
+  std::cout << std::endl; 
 }
 
 /** Any internal debuging stuff can go here */
