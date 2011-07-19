@@ -11,5 +11,5 @@ LIBS += -lsqlite3
 OBJECTS_DIR = obj
 
 # Input
-HEADERS += Org.hxx  Ren.hxx Battle.hxx DB.sqlite3.hxx Inventory.hxx Interface.hxx Item.hxx
-SOURCES += main.cxx Org.cxx Ren.cxx Battle.cxx DB.sqlite3.cxx Inventory.cxx Interface.cxx Item.cxx
+HEADERS += Org.hxx  Ren.hxx Battle.hxx DB.sqlite3.hxx Inventory.hxx Interface.hxx Item.hxx Config.hxx Tokenizer.hxx
+SOURCES += main.cxx Org.cxx Ren.cxx Battle.cxx DB.sqlite3.cxx Inventory.cxx Interface.cxx Item.cxx Config.cxx Tokenizer.cxx
