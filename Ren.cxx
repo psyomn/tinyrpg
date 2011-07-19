@@ -37,7 +37,7 @@ std::string Ren::getName() {
     case 1: return "Sheldon"; break;
     case 2: return "Raj"; break;
     case 3: return "Leonard"; break;
-    case 4: return "George"; break; 
+    case 4: return "Mark"; break; 
     case 5: return "Astaroth"; break;
     case 6: return "Yog-Sothoth"; break; 
     case 7: return "Cthulhu"; break; 
