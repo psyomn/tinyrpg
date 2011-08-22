@@ -3,8 +3,9 @@
 
 #include <map> 
 #include <string> 
+#include "Tokenizer.hxx"
 
-class Config {
+class Config : private Tokenizer {
 public: 
   Config(); 
   ~Config(); 
