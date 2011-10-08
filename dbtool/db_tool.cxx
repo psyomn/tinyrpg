@@ -84,7 +84,7 @@ int main(){
   db = new DBSqlite3("tinyrpg.sqlite3"); 
   
   // Create the table to store the information. 
-  db->query("CREATE TABLE Enemies (id int unsigned auto_increment unique, name varchar(50),  \
+  db->query("CREATE TABLE Enemies (id INTEGER asc, name varchar(50),  \
   attack int unsigned, defense int unsigned, stamina int unsigned, hitpoints int unsigned, \
   speed int unigned, class tinyint unsigned, ally tinyint unsigned, distortion tinyint unsigned, \
   experience bigint unsigned, primary key(id) ); "); 
