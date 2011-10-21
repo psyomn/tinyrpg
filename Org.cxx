@@ -22,32 +22,87 @@ Org::Org() :
 /** Destructor; deallocates the item pointers for equipment. */
 Org::~Org() {
   // Deallocate the item pointers
-  if(!mEquipAttack) delete mEquipAttack; 
-  if(!mEquipDefense) delete mEquipDefense; 
-  if(!mEquipStamina) delete mEquipStamina; 
-  if(!mEquipSpeed) delete mEquipSpeed; 
+  if(mEquipAttack) delete mEquipAttack; 
+  if(mEquipDefense) delete mEquipDefense; 
+  if(mEquipStamina) delete mEquipStamina; 
+  if(mEquipSpeed) delete mEquipSpeed; 
 } 
 
-std::string Org::getName() const { return mName; }
-unsigned int Org::getAttack() const { return mAttack; }
-unsigned int Org::getDefense() const { return mDefense; }
-unsigned int Org::getStamina() const { return mStamina; }
-unsigned int Org::getHitpoints() const { return mHitpoints; }
-unsigned int Org::getSpeed() const { return mSpeed; }
-unsigned char Org::getClass() const { return mClass; } 
-unsigned char Org::getAlly() const { return mAlly; }
-unsigned char Org::getDistortion() const { return mDistortion; } 
-uint64_t Org::getExperience() const { return mExperience; }
+std::string Org::getName() const { 
+  return mName; 
+}
 
-void Org::setAttack(unsigned int x){ mAttack = x; }
-void Org::setDefense(unsigned int x){ mDefense = x; }
-void Org::setStamina(unsigned int x){ mStamina = x; }
-void Org::setHitpoints(unsigned int x){ mHitpoints = x; } 
-void Org::setName(std::string n){ mName = n; } 
-void Org::setSpeed(unsigned int x){ mSpeed = x; }
-void Org::setClass(unsigned char x){ mClass= x; } 
-void Org::setAlly(unsigned char x){ mAlly = x; } 
-void Org::setDistortion(unsigned char x){ mDistortion = x; } 
+unsigned int Org::getAttack() const { 
+  return mAttack; 
+}
+
+unsigned int Org::getDefense() const {
+  return mDefense; 
+}
+
+unsigned int Org::getStamina() const {
+  return mStamina; 
+}
+
+unsigned int Org::getHitpoints() const { 
+  return mHitpoints; 
+}
+
+unsigned int Org::getSpeed() const { 
+  return mSpeed;
+}
+
+unsigned char Org::getClass() const { 
+  return mClass; 
+} 
+
+unsigned char Org::getAlly() const { 
+  return mAlly; 
+}
+
+unsigned char Org::getDistortion() const { 
+  return mDistortion; 
+} 
+
+uint64_t Org::getExperience() const { 
+  return mExperience; 
+}
+
+void Org::setAttack(unsigned int x){ 
+  mAttack = x; 
+}
+
+void Org::setDefense(unsigned int x){ 
+  mDefense = x; 
+}
+
+void Org::setStamina(unsigned int x){ 
+  mStamina = x; 
+}
+
+void Org::setHitpoints(unsigned int x){ 
+  mHitpoints = x; 
+} 
+
+void Org::setName(std::string n){ 
+  mName = n; 
+} 
+
+void Org::setSpeed(unsigned int x){ 
+  mSpeed = x; 
+}
+
+void Org::setClass(unsigned char x){ 
+  mClass= x; 
+} 
+
+void Org::setAlly(unsigned char x){ 
+  mAlly = x; 
+} 
+
+void Org::setDistortion(unsigned char x){ 
+  mDistortion = x; 
+} 
 
 unsigned int Org::attack(){
   return getAttack() * ( 100 + ( mRen.getSign() *  mRen.getRange(mDistortion) ) ) / 100; 
@@ -57,9 +112,17 @@ unsigned int Org::defend(){
   return getDefense() * ( 100 + ( mRen.getSign() * mRen.getRange(mDistortion) ) ) / 100;   
 }
 
-void Org::augmentAttack(){ augment(0); }
-void Org::augmentDefense(){ augment(1); }
-void Org::augmentStamina(){ augment(2); }
+void Org::augmentAttack(){ 
+  augment(0); 
+}
+
+void Org::augmentDefense(){ 
+  augment(1); 
+}
+
+void Org::augmentStamina(){ 
+  augment(2); 
+}
 
 void Org::augment(unsigned int choice){
   switch(choice){
