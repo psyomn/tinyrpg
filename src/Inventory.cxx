@@ -1,6 +1,3 @@
-#ifndef INVENTORY_CXX
-#define INVENTORY_CXX
-
 #include "Inventory.hxx"
 
 /** Default destructor */
@@ -14,6 +11,4 @@ Inventory::~Inventory(){
     delete (*it);
   }
 }
-
-#endif 
 

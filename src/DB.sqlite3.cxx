@@ -1,5 +1,4 @@
-#ifndef DB_SQLITE3_CXX
-#define DB_SQLITE3_CXX
+#include <sqlite3.h>
 
 #include "DB.sqlite3.hxx"
 
@@ -47,6 +46,4 @@ int DBSqlite3::query(std::string query){
   return mRC; 
 }
 
-
-#endif 
 

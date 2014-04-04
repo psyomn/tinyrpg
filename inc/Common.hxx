@@ -5,6 +5,8 @@ class Common {
 public: 
   static Common* Inst(); 
 private: 
+  Common();
+  ~Common();
   static Common* com; 
 };
 

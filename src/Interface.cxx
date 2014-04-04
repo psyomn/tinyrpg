@@ -1,6 +1,3 @@
-#ifndef INTERFACE_CXX
-#define INTERFACE_CXX
-
 #include "Interface.hxx" 
 #include "Org.hxx"
 #include "Battle.hxx"  
@@ -46,6 +43,4 @@ void Interface::simple(){
     bat.step(); 
   }
 }
-
-#endif 
 

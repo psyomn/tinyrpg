@@ -1,5 +1,5 @@
-#ifndef DB_SQLITE3_HXX 
-#define DB_SQLITE3_HXX
+#ifndef __DB_SQLITE_3__
+#define __DB_SQLITE_3__
 
 #include <iostream>
 #include <string> 
@@ -27,5 +27,5 @@ private:
   std::vector<std::string> mData; 
 };
 
-#endif 
 
+#endif /* Db sqlite 3 */

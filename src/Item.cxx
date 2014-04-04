@@ -1,6 +1,3 @@
-#ifndef ITEM_CXX
-#define ITEM_CXX
-
 #include "Item.hxx"
 
 /** Constructor, initializes everything to zero for safety. No mutant items please. */
@@ -24,7 +21,4 @@ void Item::setAttack(unsigned short x) { mAttack = x; }
 void Item::setDefense(unsigned short x) { mDefense = x; } 
 void Item::setStamina(unsigned short x) { mStamina = x; } 
 void Item::setSpeed(unsigned short x) { mSpeed = x; }
-
-
-#endif 
 

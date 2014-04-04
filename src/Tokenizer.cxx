@@ -1,6 +1,3 @@
-#ifndef TOKENIZER_CXX
-#define TOKENIZER_CXX
-
 #include "Tokenizer.hxx" 
 
 Tokenizer::Tokenizer(){
@@ -26,6 +23,4 @@ void Tokenizer::tokenize(const std::string& str){
 std::vector<std::string> Tokenizer::tokens(){
   return mTokens; 
 }
-
-#endif 
 

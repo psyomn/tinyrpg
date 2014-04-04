@@ -1,6 +1,3 @@
-#ifndef REN_CXX
-#define REN_CXX
-
 #include "Ren.hxx" 
 
 char Ren::mCurSeed = 0;
@@ -56,6 +53,4 @@ uint64_t Ren::getRange(uint64_t range){
 char Ren::getSign() {
   return rand() % 2 == 0 ? -1 : 1; 
 }
-
-#endif 
 

@@ -1,7 +1,7 @@
-#ifndef BATTLE_CXX
-#define BATTLE_CXX
-
 #include "Battle.hxx"
+
+#include <thread>
+#include <chrono>
 
 Battle::Battle() : 
   mEnemies(0), 
@@ -86,7 +86,6 @@ void Battle::step(){
   std::stringstream ss; 
   unsigned int choice;
   bool badnum = true; 
-  bool alldead = false;
 
   // TODO this part should probably call up the player menu, or AI of monster
   for (it=mOrgList.begin(); it!=mOrgList.end(); ++it){
@@ -123,7 +122,8 @@ void Battle::step(){
         std::cout << "Enemy " << (*it)->getName() << "\'s turn!" << std::endl; 
         mOrgList[ (*it)->examineOrgList(mOrgList) ]->receiveDamage((*it)->attack(), *(*it)); 
         std::cout << std::endl;
-        sleep(3); 
+
+	std::this_thread::sleep_for(std::chrono::seconds(3));
       }
     } // end check if they have any hitpoints left
     // this is where checking to see if a group of specific players has survived 
@@ -147,8 +147,4 @@ void Battle::debug(){
 size_t Battle::numOrgs() {
   return mOrgList.size(); 
 }
-
-#endif 
-
-
 

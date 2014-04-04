@@ -1,5 +1,3 @@
-#ifndef ORG_CXX
-#define ORG_CXX
 #include "Org.hxx"
 
 Org::Org() : 
@@ -22,10 +20,10 @@ Org::Org() :
 /** Destructor; deallocates the item pointers for equipment. */
 Org::~Org() {
   // Deallocate the item pointers
-  if(mEquipAttack) delete mEquipAttack; 
+  if(mEquipAttack)  delete mEquipAttack; 
   if(mEquipDefense) delete mEquipDefense; 
   if(mEquipStamina) delete mEquipStamina; 
-  if(mEquipSpeed) delete mEquipSpeed; 
+  if(mEquipSpeed)   delete mEquipSpeed; 
 } 
 
 std::string Org::getName() const { 
@@ -259,8 +257,10 @@ void Org::receiveDamage(unsigned int dmg, Org& other){
 void Org::debug(){
 }
 
-/** \return the position of their enemy to attack! 
-TODO needs tweaking so people don't hurt themselves, or hurt allies */
+/**
+ * \return the position of their enemy to attack! 
+ * TODO needs tweaking so people don't hurt themselves, or hurt allies 
+ */
 size_t Org::examineOrgList(const std::vector<Org*>& list) const {
   size_t pos = 0;  // pos to return with minest stamina 
   size_t count = 0;  // current pos 
@@ -282,14 +282,8 @@ void Org::receiveExperience(uint64_t exp) {
   this->mExperience += exp; 
 }
 
-
-///============== Equip
-
-void Org::equipAttack(Item* ai) { mEquipAttack = ai; }
-void Org::equipDefense(Item* di) { mEquipDefense = di; } 
-void Org::equipStamina(Item* si) { mEquipStamina = si; } 
-void Org::equipSpeed(Item* spi) { mEquipSpeed = spi; } 
-
-#endif 
-
+void Org::equipAttack(Item* ai)  { mEquipAttack  = ai;  }
+void Org::equipDefense(Item* di) { mEquipDefense = di;  } 
+void Org::equipStamina(Item* si) { mEquipStamina = si;  } 
+void Org::equipSpeed(Item* spi)  { mEquipSpeed   = spi; } 
 
