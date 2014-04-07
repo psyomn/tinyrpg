@@ -1,6 +1,8 @@
 #ifndef ITEM_HXX
 #define ITEM_HXX
 
+#include "tinyrpg.h"
+
 #include <string> 
 
 /** Class for items, mainly equipable. Maybe something else as well in the future.  */
@@ -9,22 +11,22 @@ public:
   Item(); 
   ~Item(); 
 
-  void setAttack(unsigned short);
-  void setDefense(unsigned short); 
-  void setStamina(unsigned short); 
-  void setSpeed(unsigned short); 
+  void attack(statval);
+  void defense(statval); 
+  void stamina(statval); 
+  void speed(statval); 
 
-  unsigned short getAttack(); 
-  unsigned short getDefense(); 
-  unsigned short getStamina(); 
-  unsigned short getSpeed(); 
+  statval attack(); 
+  statval defend(); 
+  statval stamina(); 
+  statval speed(); 
   
 private: 
   std::string mName; /** Name of item */
-  unsigned short mAttack;  /** Attack power when equiped*/
-  unsigned short mDefense; /** Defense power when equiped*/
-  unsigned short mStamina; /** Stamina power when equiped*/
-  unsigned short mSpeed;  /** Speed power when equiped*/
+  statval mAttack;  /** Attack power when equiped*/
+  statval mDefense; /** Defense power when equiped*/
+  statval mStamina; /** Stamina power when equiped*/
+  statval mSpeed;  /** Speed power when equiped*/
 };
 
 #endif 

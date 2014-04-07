@@ -26,27 +26,27 @@ Org::~Org() {
   if(mEquipSpeed)   delete mEquipSpeed; 
 } 
 
-std::string Org::getName() const { 
+std::string Org::name() const { 
   return mName; 
 }
 
-unsigned int Org::getAttack() const { 
+statval Org::attack() const { 
   return mAttack; 
 }
 
-unsigned int Org::getDefense() const {
+statval Org::defend() const {
   return mDefense; 
 }
 
-unsigned int Org::getStamina() const {
+statval Org::stamina() const {
   return mStamina; 
 }
 
-unsigned int Org::getHitpoints() const { 
+statval Org::hitpoints() const { 
   return mHitpoints; 
 }
 
-unsigned int Org::getSpeed() const { 
+statval Org::speed() const { 
   return mSpeed;
 }
 
@@ -66,19 +66,19 @@ uint64_t Org::getExperience() const {
   return mExperience; 
 }
 
-void Org::setAttack(unsigned int x){ 
+void Org::setAttack(statval x){ 
   mAttack = x; 
 }
 
-void Org::setDefense(unsigned int x){ 
+void Org::setDefense(statval x){ 
   mDefense = x; 
 }
 
-void Org::setStamina(unsigned int x){ 
+void Org::setStamina(statval x){ 
   mStamina = x; 
 }
 
-void Org::setHitpoints(unsigned int x){ 
+void Org::setHitpoints(statval x){ 
   mHitpoints = x; 
 } 
 
@@ -86,7 +86,7 @@ void Org::setName(std::string n){
   mName = n; 
 } 
 
-void Org::setSpeed(unsigned int x){ 
+void Org::setSpeed(statval x){ 
   mSpeed = x; 
 }
 
@@ -102,12 +102,12 @@ void Org::setDistortion(unsigned char x){
   mDistortion = x; 
 } 
 
-unsigned int Org::attack(){
-  return getAttack() * ( 100 + ( mRen.getSign() *  mRen.getRange(mDistortion) ) ) / 100; 
+statval Org::attack(){
+  return attack() * ( 100 + ( mRen.getSign() *  mRen.getRange(mDistortion) ) ) / 100; 
 }
 
-unsigned int Org::defend(){
-  return getDefense() * ( 100 + ( mRen.getSign() * mRen.getRange(mDistortion) ) ) / 100;   
+statval Org::defend(){
+  return defend() * ( 100 + ( mRen.getSign() * mRen.getRange(mDistortion) ) ) / 100;   
 }
 
 void Org::augmentAttack(){ 
@@ -122,7 +122,7 @@ void Org::augmentStamina(){
   augment(2); 
 }
 
-void Org::augment(unsigned int choice){
+void Org::augment(statval choice){
   switch(choice){
     case 0: mAttack += 1; break;
     case 1: mDefense += 1; break; 
@@ -141,7 +141,7 @@ std::string Org::to_s(){
 
   tmp += "Attack  : ";
   ss << mAttack << " (+";
-  ss << ( mEquipAttack != 0 ? mEquipAttack->getAttack() : 0 );
+  ss << ( mEquipAttack != 0 ? mEquipAttack->attack() : 0 );
   ss << ")"; 
   tmp += ss.str(); 
   tmp += "\n"; 
@@ -149,7 +149,7 @@ std::string Org::to_s(){
 
   tmp += "Defense : ";
   ss << mDefense << " (+";
-  ss << ( mEquipDefense != 0 ? mEquipDefense->getDefense() : 0 ); 
+  ss << ( mEquipDefense != 0 ? mEquipDefense->defend() : 0 ); 
   ss << ")"; 
   tmp += ss.str(); 
   tmp += "\n"; 
@@ -157,7 +157,7 @@ std::string Org::to_s(){
 
   tmp += "Speed   : ";
   ss << mSpeed << " (+";
-  ss << ( mEquipSpeed != 0 ? mEquipSpeed->getSpeed() : 0 ); 
+  ss << ( mEquipSpeed != 0 ? mEquipSpeed->speed() : 0 ); 
   ss << ")"; 
   tmp += ss.str(); 
   tmp += "\n"; 
@@ -169,7 +169,7 @@ std::string Org::to_s(){
   ss.str("");
   tmp += "/";
   ss << mStamina << " (+"; 
-  ss << ( mEquipStamina != 0 ? mEquipStamina->getStamina() : 0 ); 
+  ss << ( mEquipStamina != 0 ? mEquipStamina->stamina() : 0 ); 
   ss << ")"; 
   tmp += ss.str(); 
   tmp += "\n"; 
@@ -197,7 +197,7 @@ std::string Org::to_ms(){
 
 /** Generate random information for an organism object */
 void Org::rand() {
-  unsigned int tmp; 
+  statval tmp; 
   std::string stmp = ""; 
 
   mRen.set(tmp); 
@@ -209,7 +209,7 @@ void Org::rand() {
   mHitpoints = mStamina; 
   mRen.set(tmp); 
   mSpeed = tmp % 20 + 1;
-  stmp = mRen.getName(); 
+  stmp = mRen.name(); 
   mName = stmp; 
   mRen.set(tmp); 
   mDistortion = tmp % 16; 
@@ -220,8 +220,8 @@ void Org::rand() {
 /** Main routine for talking about damage and having jackass quotes whenever an org damages itself 
 TODO gaining for experience points should go here.
 */
-void Org::receiveDamage(unsigned int dmg, Org& other){
-  unsigned int tmp = defend(); 
+void Org::receiveDamage(statval dmg, Org& other){
+  statval tmp = defend(); 
 
   if (dmg > tmp) 
     dmg -= tmp; 
@@ -229,7 +229,7 @@ void Org::receiveDamage(unsigned int dmg, Org& other){
     dmg = 1;
 
   if (this != &other)
-    std::cout << this->mName << " receives " << dmg << " damage from " << other.getName() << std::endl; 
+    std::cout << this->mName << " receives " << dmg << " damage from " << other.name() << std::endl; 
   else 
     std::cout << this->mName << " goes emo and damages himself for " << dmg << " hitpoints!" << std::endl; 
 
@@ -239,10 +239,10 @@ void Org::receiveDamage(unsigned int dmg, Org& other){
     mHitpoints = 0;
 
     if (this != &other){
-      std::cout << this->mName << " dies from the hands of " << other.getName() << std::endl; 
+      std::cout << this->mName << " dies from the hands of " << other.name() << std::endl; 
     
       // Experience Reward 
-      std::cout << other.getName() << " receives " << this->getExperience() << " experience points for the kill!" << std::endl;
+      std::cout << other.name() << " receives " << this->getExperience() << " experience points for the kill!" << std::endl;
       other.receiveExperience(this->getExperience()); 
 
     }
@@ -264,11 +264,11 @@ void Org::debug(){
 size_t Org::examineOrgList(const std::vector<Org*>& list) const {
   size_t pos = 0;  // pos to return with minest stamina 
   size_t count = 0;  // current pos 
-  unsigned int minhp = ~0; // set to max for min later 
+  statval minhp = ~0; // set to max for min later 
 
   for(std::vector<Org*>::const_iterator it = list.begin(); it != list.end(); ++it){
-    if (minhp > (*it)->getHitpoints() && (*it)->getHitpoints() != 0 && *it != this ){
-      minhp = (*it)->getHitpoints(); 
+    if (minhp > (*it)->hitpoints() && (*it)->hitpoints() != 0 && *it != this ){
+      minhp = (*it)->hitpoints(); 
       pos = count; 
     }
     ++count; 

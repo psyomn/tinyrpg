@@ -1,8 +1,8 @@
 #include "Ren.hxx" 
 
-char Ren::mCurSeed = 0;
-
-Ren::Ren(){
+Ren::Ren() :
+  mCurSeed(1337)
+{
   if (!mCurSeed){
     generate();  
   } 
@@ -13,9 +13,7 @@ Ren::~Ren(){
 }
 
 void Ren::generate(){
-  std::cout << "GEN SEED" << std::endl;
-  srand ( time ( 0 ) );  
-  mCurSeed = 1; 
+  srand (mCurSeed);  
 }
 
 // TODO 
@@ -28,22 +26,18 @@ void Ren::set(float& r){
   r = 42.43; 
 }
 
-std::string Ren::getName() {
-  switch(rand() % 10){
-    case 0: return "Howard"; break;
-    case 1: return "Sheldon"; break;
-    case 2: return "Raj"; break;
-    case 3: return "Leonard"; break;
-    case 4: return "Mark"; break; 
-    case 5: return "Astaroth"; break;
-    case 6: return "Yog-Sothoth"; break; 
-    case 7: return "Cthulhu"; break; 
-    case 8: return "Darwin"; break;
-    case 9: return "Jeremy"; break; 
-    default: return "Somethingsomewherewentterriblywrong"; break; 
-  }
+/** Get a random name */
+std::string Ren::name() {
+	using std::string;
+	using std::vector;
 
-  return "Anon";
+	vector<string> vec({"Howard", "Sheldon", "Redcap", "Bluecap", "Johnny", 
+	  "Jeremy", "Dave", "David", "Ernest", "Eric", "Fred", "George", "Igor",
+		"Katrine", "Lenny", "Monstro", "Orpheus", "Preston", "Qadar", "Ren",
+		"Solomon", "Tyresse", "Urly", "Xena"
+	});
+
+  return vec[getRange(vec.size())];
 }
 
 uint64_t Ren::getRange(uint64_t range){
